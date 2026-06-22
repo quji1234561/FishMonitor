@@ -1,0 +1,15 @@
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+.trae/
+data/fish_image.zip
+data/MFT25.zip
+data/MFT25/**/**/img1/
+output/enhanced/
+output/video/*
+output/temporal/*
+**/__pycache__/
+output/fish_detection/*
+output/web_demo/*
+archive/*
+*.mp4
