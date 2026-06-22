@@ -1,0 +1,8 @@
+# SCM syntax highlighting & preventing 3-way merges
+pixi.lock merge=binary linguist-language=YAML linguist-generated=true -diff
+models/activity_state/best_activity_classifier.pkl filter=lfs diff=lfs merge=lfs -text
+output/evaluation/PF-001_yolo_state_metrics_minvis/temporal/temporal_results.csv filter=lfs diff=lfs merge=lfs -text
+output/activity_state_yolo/PF-001_v9_step1_metrics_minvis/matched_all/yolo_activity_state_all.csv filter=lfs diff=lfs merge=lfs -text
+*.pkl filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
