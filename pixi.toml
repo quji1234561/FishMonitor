@@ -1,0 +1,36 @@
+[workspace]
+authors = ["quji1234561 <3090564369@qq.com>"]
+channels = ["conda-forge"]
+name = "FishMonitor"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+labelBT1 = "python scripts/auto_label_fish_activity.py --seq-dir data/MFT25/MFT25-train/BT-001 --out-dir output/activity/BT-001 --frame-step 10 --low-percentile 25 --high-percentile 75 --make-yolo"
+generateBT1 = "python scripts/generate_activity_video.py --seq-dir data/MFT25/MFT25-train/BT-001 --activity-csv output/activity/BT-001/auto_speed_labels_sampled.csv --out output/video/BT-001_activity_labels.mp4 --fps 10 --resize 0.5"
+enhanceBT1 = "python image_enhancement/enhance_yolo_dataset.py --input-yolo output/activity/BT-001/yolo_dataset --output-yolo output/enhanced/BT-001_yolo_enhanced --overwrite"
+trainBT1 = "python yolo/train_yolo.py --data output/enhanced/BT-001_yolo_enhanced/data.yaml --model weights/yolov8n.pt --epochs 50 --imgsz 640 --batch 8 --project output/yolo_runs --name fish_activity_train --exist-ok"
+predictBT1 = "python yolo/predict_yolo.py --weights output/yolo_runs/fish_activity_train/weights/best.pt --source output/enhanced/BT-001_yolo_enhanced/images/test --project output/yolo_runs --name fish_activity_predict --exist-ok"
+evaluate_val = "python yolo/evaluate_yolo.py --weights output/yolo_runs/fish_activity_train/weights/best.pt --data output/enhanced/BT-001_yolo_enhanced/data.yaml --split val --project output/yolo_runs --name fish_activity_eval_val --exist-ok"
+evaluate_test = "python yolo/evaluate_yolo.py --weights output/yolo_runs/fish_activity_train/weights/best.pt --data output/enhanced/BT-001_yolo_enhanced/data.yaml --split test --project output/yolo_runs --name fish_activity_eval_test --exist-ok"
+
+
+[dependencies]
+opencv = ">=4.12.0,<5"
+pandas = ">=3.0.3,<4"
+numpy = ">=2.4.6,<3"
+ultralytics = ">=8.4.57,<9"
+pytorch = ">=2.6.0,<3"
+torchvision = ">=0.21.0,<1"
+lap = ">=0.5.12,<1"
+scikit-learn = ">=1.9.0,<2"
+
+[pypi-dependencies]
+ultralytics = "*"
+flask = ">=3.1.3, <4"
+opencv-python = "*"
+pandas = "*"
+numpy = "*"
+matplotlib = "*"
+xgboost = ">=3.3.0, <4"
+lightgbm = ">=4.6.0, <5"

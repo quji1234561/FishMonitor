@@ -1,0 +1,181 @@
+{
+  "model_type": "weighted_motion_score_v1",
+  "model_name": "speed_dominant",
+  "label_version": "v9_event_below_low_overlap_suppressed",
+  "state_names": {
+    "0": "low_activity",
+    "1": "normal_activity",
+    "2": "high_activity"
+  },
+  "model_features": [
+    "speed_smooth",
+    "speed_mean_w5",
+    "speed_max_w5",
+    "speed_std_w5",
+    "accel_abs_smooth",
+    "turn_rate_w5",
+    "bbox_aspect_change_w5",
+    "bbox_size_change_w5",
+    "edge_shape_change_w5",
+    "in_place_turn_score",
+    "bbox_shape_change_rate_w1s",
+    "bbox_pulse_score_w1s",
+    "sharp_turn_event_w5",
+    "displacement_w5",
+    "movement_ratio_w5",
+    "group_speed_mean",
+    "group_high_motion_ratio"
+  ],
+  "feature_weights": {
+    "speed_smooth": 0.22641509433962262,
+    "speed_mean_w5": 0.2830188679245283,
+    "speed_max_w5": 0.1509433962264151,
+    "speed_std_w5": 0.07547169811320754,
+    "accel_abs_smooth": 0.07547169811320754,
+    "turn_rate_w5": 0.018867924528301886,
+    "bbox_aspect_change_w5": 0.009433962264150943,
+    "bbox_size_change_w5": 0.009433962264150943,
+    "edge_shape_change_w5": 0.009433962264150943,
+    "in_place_turn_score": 0.009433962264150943,
+    "bbox_shape_change_rate_w1s": 0.009433962264150943,
+    "bbox_pulse_score_w1s": 0.009433962264150943,
+    "sharp_turn_event_w5": 0.009433962264150943,
+    "displacement_w5": 0.0660377358490566,
+    "movement_ratio_w5": 0.018867924528301886,
+    "group_speed_mean": 0.018867924528301886,
+    "group_high_motion_ratio": 0.0
+  },
+  "normalization": {
+    "speed_smooth": {
+      "p10": 0.09194429396594139,
+      "p90": 0.4477300652477855
+    },
+    "speed_mean_w5": {
+      "p10": 0.09989855578891235,
+      "p90": 0.4351134323477635
+    },
+    "speed_max_w5": {
+      "p10": 0.12319200200942643,
+      "p90": 0.5140867844232471
+    },
+    "speed_std_w5": {
+      "p10": 0.00784832959822219,
+      "p90": 0.09054588699227081
+    },
+    "accel_abs_smooth": {
+      "p10": 0.0,
+      "p90": 0.0427675442884595
+    },
+    "turn_rate_w5": {
+      "p10": 0.12752296089110096,
+      "p90": 1.170453581106957
+    },
+    "bbox_aspect_change_w5": {
+      "p10": 0.00193009072383144,
+      "p90": 0.019706288792108968
+    },
+    "bbox_size_change_w5": {
+      "p10": 0.0034252933674673203,
+      "p90": 0.01601634659566915
+    },
+    "edge_shape_change_w5": {
+      "p10": 0.0028872445969983,
+      "p90": 0.012015782840593368
+    },
+    "in_place_turn_score": {
+      "p10": 0.0,
+      "p90": 0.00904363351219285
+    },
+    "bbox_shape_change_rate_w1s": {
+      "p10": 0.10430449575139988,
+      "p90": 0.3450325794953225
+    },
+    "bbox_pulse_score_w1s": {
+      "p10": 0.10719017801315356,
+      "p90": 0.4815088689975014
+    },
+    "sharp_turn_event_w5": {
+      "p10": 0.14951919889267412,
+      "p90": 1.2389587503009696
+    },
+    "displacement_w5": {
+      "p10": 0.01062011705305715,
+      "p90": 0.07122662537989624
+    },
+    "movement_ratio_w5": {
+      "p10": 1.1606322943299336,
+      "p90": 2.1953484965183843
+    },
+    "group_speed_mean": {
+      "p10": 0.1289294048292821,
+      "p90": 0.39473522654130316
+    },
+    "group_high_motion_ratio": {
+      "p10": 0.0,
+      "p90": 0.5
+    }
+  },
+  "low_score_threshold": 0.09237236618729576,
+  "high_score_threshold": 0.6572759953901172,
+  "train_metrics": {
+    "accuracy": 0.5045546073449036,
+    "macro_f1": 0.3384887179789731,
+    "confusion_matrix": [
+      [
+        142,
+        659,
+        170
+      ],
+      [
+        1345,
+        8806,
+        3314
+      ],
+      [
+        599,
+        4247,
+        1576
+      ]
+    ]
+  },
+  "val_metrics": {
+    "accuracy": 0.5574028701435072,
+    "macro_f1": 0.39403199671181727,
+    "confusion_matrix": [
+      [
+        66,
+        112,
+        52
+      ],
+      [
+        270,
+        2681,
+        1024
+      ],
+      [
+        94,
+        977,
+        438
+      ]
+    ]
+  },
+  "source": {
+    "train_csv": "output/activity_state_yolo/PF-001_v9_step1/matched_all/yolo_activity_state_train.csv",
+    "val_csv": "output/activity_state_yolo/PF-001_v9_step1/matched_all/yolo_activity_state_val.csv",
+    "feature_config": "output/activity_state/PF-001_v9_step1/feature_config.json",
+    "low_percentile": 10.0,
+    "high_percentile": 80.0
+  },
+  "postprocess": {
+    "mode": "persistent",
+    "window_sec": 3.0,
+    "window_rows": 1,
+    "low_required_ratio": 0.8,
+    "high_required_ratio": 0.6,
+    "backfill_persistent_states": true,
+    "high_event_col": "sharp_turn_event_w5",
+    "high_event_threshold": 1.3920577692086649,
+    "high_event_hold_sec": 1.0,
+    "high_event_hold_rows": 1
+  }
+}

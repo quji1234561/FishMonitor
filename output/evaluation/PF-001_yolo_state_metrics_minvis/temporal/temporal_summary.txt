@@ -1,0 +1,24 @@
+时序分析结果摘要
+================
+输入预测框数量: 29721
+轨迹数量: 42
+状态来源: activity_classifier
+阈值模式: activity_classifier
+阈值速度列: classifier
+阈值文件: 
+状态模型: 
+TCN状态模型: 
+状态分类器: models/activity_state_metrics_minvis/best_activity_classifier.pkl
+TCN状态模型类型: 
+TCN状态模型名称: 
+状态模型类型: 
+状态分类器类型: sklearn_activity_classifier_v1
+状态分类器名称: extra_trees_acc
+滑动窗口大小: 30
+多数投票比例: 0.7
+速度平滑窗口: 5
+速度低阈值: 0.000000
+速度高阈值: 0.000000
+输出: output\evaluation\PF-001_yolo_state_metrics_minvis\temporal\temporal_results.csv
+帧级统计: output\evaluation\PF-001_yolo_state_metrics_minvis\temporal\frame_activity_summary.csv
+趋势图: output\evaluation\PF-001_yolo_state_metrics_minvis\temporal\activity_trend.png

@@ -1,0 +1,55 @@
+{
+  "gt_csv": "output/activity_state/PF-001_v9_step1_metrics_minvis/activity_state_all.csv",
+  "pred_csv": "output/activity_state_yolo/PF-001_v9_step1/tracking_all/raw_predictions.csv",
+  "feature_config": "output/activity_state/PF-001_v9_step1_metrics_minvis/feature_config.json",
+  "iou_threshold": 0.5,
+  "gt_rows": 30000,
+  "pred_rows": 29721,
+  "matched_rows": 29533,
+  "unmatched_gt_rows": 467,
+  "unmatched_pred_rows": 188,
+  "match_recall_gt": 0.9844333333333334,
+  "match_precision_pred": 0.9936745062413781,
+  "state_counts": {
+    "normal_activity": 24886,
+    "high_activity": 3327,
+    "low_activity": 1320
+  },
+  "split_state_counts": {
+    "test": {
+      "normal_activity": 2657,
+      "high_activity": 288,
+      "low_activity": 16
+    },
+    "train": {
+      "normal_activity": 17417,
+      "high_activity": 2499,
+      "low_activity": 942
+    },
+    "val": {
+      "normal_activity": 4812,
+      "high_activity": 540,
+      "low_activity": 362
+    }
+  },
+  "model_features": [
+    "speed_smooth",
+    "speed_mean_w5",
+    "speed_max_w5",
+    "speed_std_w5",
+    "accel_abs_smooth",
+    "turn_rate_w5",
+    "bbox_aspect_change_w5",
+    "bbox_size_change_w5",
+    "edge_shape_change_w5",
+    "in_place_turn_score",
+    "bbox_shape_change_rate_w1s",
+    "bbox_pulse_score_w1s",
+    "sharp_turn_event_w5",
+    "displacement_w5",
+    "movement_ratio_w5",
+    "group_speed_mean",
+    "group_high_motion_ratio"
+  ],
+  "label_version": "v9_event_below_low_overlap_suppressed"
+}

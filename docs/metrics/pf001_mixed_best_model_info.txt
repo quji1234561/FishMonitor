@@ -1,0 +1,11 @@
+Best experiment
+===============
+name: fish_yolov8n_640_pf001_step5_mixed_e50
+model: yolov8n.pt
+epochs: 50
+imgsz: 640
+batch: 8
+mAP50: 0.9822854755311706
+mAP50-95: 0.6201799685240066
+mAP75: 0.7291274065713336
+best_pt: /kaggle/working/yolo_runs/fish_yolov8n_640_pf001_step5_mixed_e50/weights/best.pt

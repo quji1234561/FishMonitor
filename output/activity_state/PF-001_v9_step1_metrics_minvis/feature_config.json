@@ -1,0 +1,132 @@
+{
+  "label_version": "v9_event_below_low_overlap_suppressed",
+  "label_source": "auto_persistent_motion_rule",
+  "model_features": [
+    "speed_smooth",
+    "speed_mean_w5",
+    "speed_max_w5",
+    "speed_std_w5",
+    "accel_abs_smooth",
+    "turn_rate_w5",
+    "bbox_aspect_change_w5",
+    "bbox_size_change_w5",
+    "edge_shape_change_w5",
+    "in_place_turn_score",
+    "bbox_shape_change_rate_w1s",
+    "bbox_pulse_score_w1s",
+    "sharp_turn_event_w5",
+    "displacement_w5",
+    "movement_ratio_w5",
+    "group_speed_mean",
+    "group_high_motion_ratio"
+  ],
+  "feature_weights": {
+    "speed_smooth": 0.16,
+    "speed_mean_w5": 0.2,
+    "speed_max_w5": 0.1,
+    "speed_std_w5": 0.07,
+    "accel_abs_smooth": 0.11,
+    "turn_rate_w5": 0.03,
+    "bbox_aspect_change_w5": 0.04,
+    "bbox_size_change_w5": 0.03,
+    "edge_shape_change_w5": 0.03,
+    "in_place_turn_score": 0.03,
+    "bbox_shape_change_rate_w1s": 0.06,
+    "bbox_pulse_score_w1s": 0.06,
+    "sharp_turn_event_w5": 0.03,
+    "displacement_w5": 0.07,
+    "movement_ratio_w5": 0.03,
+    "group_speed_mean": 0.02,
+    "group_high_motion_ratio": 0.01
+  },
+  "normalization": {
+    "speed_smooth": {
+      "p10": 0.10323149845102239,
+      "p90": 0.695785633231084
+    },
+    "speed_mean_w5": {
+      "p10": 0.11366383007975639,
+      "p90": 0.676166457764191
+    },
+    "speed_max_w5": {
+      "p10": 0.14114034328405775,
+      "p90": 0.9509424396971656
+    },
+    "speed_std_w5": {
+      "p10": 0.010806184340708928,
+      "p90": 0.24439453921734344
+    },
+    "accel_abs_smooth": {
+      "p10": 0.0,
+      "p90": 0.09965087171545986
+    },
+    "turn_rate_w5": {
+      "p10": 0.3412548555095404,
+      "p90": 1.928082296634436
+    },
+    "bbox_aspect_change_w5": {
+      "p10": 0.0,
+      "p90": 0.040340476014873866
+    },
+    "bbox_size_change_w5": {
+      "p10": 0.0,
+      "p90": 0.024964573256583383
+    },
+    "edge_shape_change_w5": {
+      "p10": 0.0,
+      "p90": 0.020091781380274464
+    },
+    "in_place_turn_score": {
+      "p10": 0.0,
+      "p90": 0.016134394568489044
+    },
+    "bbox_shape_change_rate_w1s": {
+      "p10": 0.09589299155267056,
+      "p90": 0.48856226798585084
+    },
+    "bbox_pulse_score_w1s": {
+      "p10": 0.07600524929906124,
+      "p90": 0.47685040330206213
+    },
+    "sharp_turn_event_w5": {
+      "p10": 0.02040507575456191,
+      "p90": 1.49030492467084
+    },
+    "displacement_w5": {
+      "p10": 0.011154556229857972,
+      "p90": 0.08727665370323263
+    },
+    "movement_ratio_w5": {
+      "p10": 1.2027731579537184,
+      "p90": 4.927868707382021
+    },
+    "group_speed_mean": {
+      "p10": 0.1382543424498663,
+      "p90": 0.635759512822897
+    },
+    "group_high_motion_ratio": {
+      "p10": 0.0,
+      "p90": 0.5
+    }
+  },
+  "label_thresholds": {
+    "low_score_threshold": 0.19041258097320218,
+    "high_score_threshold": 0.7126686282690742,
+    "low_percentile": 25.0,
+    "high_percentile": 92.0
+  },
+  "feature_window": 5,
+  "speed_smooth_window": 5,
+  "frame_step": 1,
+  "feature_after_sampling": true,
+  "label_mode": "persistent",
+  "label_window_sec": 3.0,
+  "low_required_ratio": 0.75,
+  "high_required_ratio": 0.75,
+  "backfill_persistent_states": true,
+  "high_event_percentile": 97.0,
+  "high_event_hold_sec": 1.0,
+  "min_low_label_confidence": 0.65,
+  "min_high_label_confidence": 0.5,
+  "max_non_normal_ratio": 0.18
+}

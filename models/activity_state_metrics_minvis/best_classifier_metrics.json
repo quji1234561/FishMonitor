@@ -1,0 +1,83 @@
+{
+  "selection_metric": "accuracy",
+  "best_score": 0.8533426671333567,
+  "best_row": {
+    "candidate": "extra_trees_acc",
+    "non_normal_min_prob": 0.0,
+    "post_window": 30,
+    "min_vote_ratio": 0.7,
+    "train_accuracy": 0.9237223127816665,
+    "train_macro_f1": 0.8432217182995911,
+    "train_pred_low_ratio": 0.04405983315754147,
+    "train_pred_normal_ratio": 0.8345958385271838,
+    "train_pred_high_ratio": 0.12134432831527471,
+    "train_pred_non_normal_ratio": 0.16540416147281617,
+    "val_accuracy": 0.8533426671333567,
+    "val_macro_f1": 0.4608997364495833,
+    "val_pred_low_ratio": 0.01662583129156458,
+    "val_pred_normal_ratio": 0.9723486174308715,
+    "val_pred_high_ratio": 0.011025551277563878,
+    "val_pred_non_normal_ratio": 0.027651382569128455,
+    "passes_selection_constraints": true
+  },
+  "best_train_metrics": {
+    "accuracy": 0.9237223127816665,
+    "macro_f1": 0.8432217182995911,
+    "confusion_matrix": [
+      [
+        775,
+        167,
+        0
+      ],
+      [
+        126,
+        16626,
+        665
+      ],
+      [
+        18,
+        615,
+        1866
+      ]
+    ],
+    "pred_low_ratio": 0.04405983315754147,
+    "pred_normal_ratio": 0.8345958385271838,
+    "pred_high_ratio": 0.12134432831527471,
+    "pred_non_normal_ratio": 0.16540416147281617
+  },
+  "best_val_metrics": {
+    "accuracy": 0.8533426671333567,
+    "macro_f1": 0.4608997364495833,
+    "confusion_matrix": [
+      [
+        90,
+        272,
+        0
+      ],
+      [
+        5,
+        4765,
+        42
+      ],
+      [
+        0,
+        519,
+        21
+      ]
+    ],
+    "pred_low_ratio": 0.01662583129156458,
+    "pred_normal_ratio": 0.9723486174308715,
+    "pred_high_ratio": 0.011025551277563878,
+    "pred_non_normal_ratio": 0.027651382569128455
+  },
+  "selection_constraints": {
+    "min_val_non_normal_ratio": 0.01,
+    "min_val_low_ratio": 0.001,
+    "min_val_high_ratio": 0.001
+  },
+  "state_names": {
+    "0": "low_activity",
+    "1": "normal_activity",
+    "2": "high_activity"
+  }
+}

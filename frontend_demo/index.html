@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FishMonitor 鱼类状态监测演示</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #fff;
+      --text: #162033;
+      --muted: #65758d;
+      --line: #d8e1eb;
+      --accent: #0b7f8f;
+      --accent-dark: #075865;
+      --soft: #e5f5f7;
+      --danger: #a83232;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+
+    header {
+      padding: 24px 32px;
+      background: #0f2733;
+      color: #fff;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 0;
+      color: #d6e6ea;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(20, 35, 60, 0.07);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    section {
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin: 12px 0 6px;
+    }
+
+    input[type="file"], input[type="number"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      background: #fbfcfe;
+      color: var(--text);
+    }
+
+    button {
+      width: 100%;
+      margin-top: 14px;
+      border: 0;
+      border-radius: 6px;
+      padding: 12px 14px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover { background: var(--accent-dark); }
+    button:disabled { cursor: wait; opacity: 0.65; }
+
+    video {
+      width: 100%;
+      max-height: 560px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0c1720;
+    }
+
+    .status {
+      min-height: 42px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      white-space: pre-wrap;
+      font-size: 13px;
+    }
+
+    .status.error {
+      color: var(--danger);
+      border-color: #e0aaaa;
+      background: #fff6f6;
+    }
+
+    .pipeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+
+    .step b {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hint {
+      border: 1px solid #b7dfe5;
+      background: var(--soft);
+      color: #0b5360;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .waiting-panel {
+      text-align: center;
+      padding: 42px 18px;
+    }
+
+    .spinner {
+      width: 34px;
+      height: 34px;
+      margin: 0 auto 14px;
+      border: 4px solid #d8e1eb;
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .waiting-panel strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .waiting-panel span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .label-stats {
+      margin-top: 14px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .stats-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .stats-summary div {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      background: #fbfcfe;
+    }
+
+    .stats-summary span,
+    .label-row span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .stats-summary strong {
+      font-size: 18px;
+    }
+
+    .label-row {
+      display: grid;
+      grid-template-columns: 92px 1fr 84px;
+      align-items: center;
+      gap: 10px;
+      margin-top: 9px;
+    }
+
+    .label-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.orange { background: #ffa050; }
+    .dot.green { background: #50dc50; }
+    .dot.red { background: #ff5050; }
+
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #edf2f7;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      min-width: 2px;
+    }
+
+    .bar-fill.orange { background: #ffa050; }
+    .bar-fill.green { background: #50dc50; }
+    .bar-fill.red { background: #ff5050; }
+
+    .label-value {
+      text-align: right;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      header { padding: 20px; }
+      main { padding: 14px; }
+      .grid { grid-template-columns: 1fr; }
+      .stats-summary { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FishMonitor 鱼类状态监测演示</h1>
+    <p>上传鱼类视频后，系统自动完成鱼体检测、轨迹特征提取和活跃状态识别，并生成带状态标签的结果视频。</p>
+  </header>
+
+  <main>
+    <div class="grid">
+      <div>
+        <section>
+          <h2>视频上传检测</h2>
+          <p>上传鱼类视频后，系统使用 YOLOv8n 识别鱼体位置，再结合轨迹特征和活跃度分类器输出低活跃、正常活跃、高活跃三类状态，并生成可视化结果视频。</p>
+
+          <form id="uploadForm">
+            <label for="video">选择鱼类视频</label>
+            <input id="video" name="video" type="file" accept="video/*" required>
+
+            <label for="frameStep">抽帧间隔</label>
+            <input id="frameStep" name="frame_step" type="number" min="1" value="1">
+
+            <label for="maxFrames">最多处理帧数，演示时可填 300</label>
+            <input id="maxFrames" name="max_frames" type="number" min="1" placeholder="留空表示处理完整视频">
+
+            <button id="submitBtn" type="submit">开始检测并生成结果视频</button>
+          </form>
+
+          <div id="status" class="status">等待上传视频。</div>
+        </section>
+
+        <section>
+          <h2>处理流程</h2>
+          <div class="pipeline">
+            <div class="step"><b>1</b><div><strong>视频帧读取</strong><span>读取上传视频帧，并按设置的抽帧间隔参与检测。</span></div></div>
+            <div class="step"><b>2</b><div><strong>YOLO 鱼体检测</strong><span>使用 PF-001 mix 训练得到的 YOLOv8n 权重定位鱼体框。</span></div></div>
+            <div class="step"><b>3</b><div><strong>轨迹特征计算</strong><span>根据连续帧检测框生成 track_id，并计算速度、位移、框变化等时序特征。</span></div></div>
+            <div class="step"><b>4</b><div><strong>活跃状态识别</strong><span>调用训练好的活跃度分类器，输出低活跃、正常活跃、高活跃状态。</span></div></div>
+            <div class="step"><b>5</b><div><strong>结果视频生成</strong><span>将鱼体框、轨迹 ID 和状态标签绘制到视频中，并返回前端播放。</span></div></div>
+          </div>
+        </section>
+      </div>
+
+      <div>
+        <section id="waitingSection" class="hidden">
+          <div class="waiting-panel">
+            <div class="spinner"></div>
+            <strong>正在检测中</strong>
+            <span>已等待 <span id="elapsedSeconds">0</span> 秒</span>
+          </div>
+        </section>
+
+        <section id="resultSection" class="hidden">
+          <h2>检测结果视频</h2>
+          <video id="resultVideo" controls playsinline></video>
+          <p><a id="resultLink" href="#" target="_blank" rel="noopener" style="display:none;color:#0b7f8f;">打开结果视频文件</a></p>
+          <div class="hint">颜色含义：橙色为低活跃，绿色为正常活跃，红色为高活跃。</div>
+          <div id="labelStats" class="label-stats"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const statusBox = document.getElementById('status');
+    const submitBtn = document.getElementById('submitBtn');
+    const waitingSection = document.getElementById('waitingSection');
+    const elapsedSeconds = document.getElementById('elapsedSeconds');
+    const resultSection = document.getElementById('resultSection');
+    const resultVideo = document.getElementById('resultVideo');
+    const resultLink = document.getElementById('resultLink');
+    const labelStats = document.getElementById('labelStats');
+    let waitTimer = null;
+
+    function startWaitingTimer() {
+      stopWaitingTimer();
+      const startedAt = Date.now();
+      elapsedSeconds.textContent = '0';
+      waitingSection.classList.remove('hidden');
+      waitTimer = window.setInterval(() => {
+        elapsedSeconds.textContent = String(Math.floor((Date.now() - startedAt) / 1000));
+      }, 1000);
+    }
+
+    function stopWaitingTimer() {
+      if (waitTimer !== null) {
+        window.clearInterval(waitTimer);
+        waitTimer = null;
+      }
+      waitingSection.classList.add('hidden');
+    }
+
+    function formatPercent(value) {
+      return (Number(value || 0) * 100).toFixed(1) + '%';
+    }
+
+    function renderLabelStats(stats) {
+      if (!stats || !Array.isArray(stats.items)) {
+        labelStats.innerHTML = '';
+        return;
+      }
+
+      const summary = `
+        <h2>标签统计</h2>
+        <div class="stats-summary">
+          <div><span>检测框总数</span><strong>${stats.total_boxes || 0}</strong></div>
+          <div><span>处理帧数</span><strong>${stats.frame_count || 0}</strong></div>
+        </div>
+      `;
+
+      const rows = stats.items.map((item) => {
+        const ratio = Number(item.ratio || 0);
+        const width = Math.max(0, Math.min(100, ratio * 100));
+        return `
+          <div class="label-row">
+            <div class="label-name"><i class="dot ${item.color}"></i>${item.label}</div>
+            <div class="bar"><div class="bar-fill ${item.color}" style="width:${width}%"></div></div>
+            <div class="label-value">${item.count || 0} / ${formatPercent(ratio)}</div>
+          </div>
+        `;
+      }).join('');
+
+      labelStats.innerHTML = summary + rows;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      statusBox.classList.remove('error');
+      statusBox.textContent = '正在上传并处理视频，请稍候...';
+      submitBtn.disabled = true;
+      resultSection.classList.add('hidden');
+      startWaitingTimer();
+      resultVideo.removeAttribute('src');
+      resultLink.style.display = 'none';
+      resultLink.removeAttribute('href');
+      labelStats.innerHTML = '';
+
+      const formData = new FormData(form);
+      try {
+        const response = await fetch('/api/process', {
+          method: 'POST',
+          body: formData,
+        });
+        const contentType = response.headers.get('content-type') || '';
+        const payload = contentType.includes('application/json')
+          ? await response.json()
+          : { ok: false, error: '后端没有返回 JSON。请确认是通过 python app.py 启动，并打开 http://127.0.0.1:7860。', log: await response.text() };
+        if (!response.ok || !payload.ok) {
+          throw new Error((payload && payload.error) ? payload.error + '\n' + (payload.log || '').slice(0, 1200) : '处理失败');
+        }
+        resultVideo.src = payload.result_video;
+        resultVideo.load();
+        resultLink.href = payload.result_video;
+        resultLink.style.display = 'inline';
+        renderLabelStats(payload.label_stats);
+        resultSection.classList.remove('hidden');
+        statusBox.textContent = '处理完成。结果视频已生成';
+      } catch (error) {
+        statusBox.classList.add('error');
+        statusBox.textContent = error.message || String(error);
+      } finally {
+        stopWaitingTimer();
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "rows": 30000,
+  "frames": 15000,
+  "tracks": 2,
+  "state_counts": {
+    "normal_activity": 25340,
+    "high_activity": 3340,
+    "low_activity": 1320
+  },
+  "split_state_counts": {
+    "test": {
+      "high_activity": 297,
+      "low_activity": 16,
+      "normal_activity": 2687
+    },
+    "train": {
+      "high_activity": 2503,
+      "low_activity": 942,
+      "normal_activity": 17555
+    },
+    "val": {
+      "high_activity": 540,
+      "low_activity": 362,
+      "normal_activity": 5098
+    }
+  },
+  "low_score_threshold": 0.19041258097320218,
+  "high_score_threshold": 0.7126686282690742,
+  "score_describe": {
+    "count": 30000.0,
+    "mean": 0.36416144504448555,
+    "std": 0.21335918386520214,
+    "min": 0.00044620105338075773,
+    "25%": 0.19041258097320218,
+    "50%": 0.32663060102081176,
+    "75%": 0.5145621381465808,
+    "max": 0.9637708685080802
+  },
+  "label_filter_counts": {
+    "": 28701,
+    "low_confidence_to_normal": 1299
+  }
+}

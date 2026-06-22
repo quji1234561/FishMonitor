@@ -1,0 +1,37 @@
+{
+  "gt_csv": "output/activity_state/PF-001_v9_step1_metrics_minvis/activity_state_test.csv",
+  "pred_csv": "output/evaluation/PF-001_yolo_state_metrics_minvis/temporal/temporal_results.csv",
+  "gt_split": "test",
+  "iou_threshold": 0.5,
+  "total_gt_boxes": 3000,
+  "total_pred_boxes": 29721,
+  "matched_boxes": 2961,
+  "unmatched_gt_boxes": 39,
+  "unmatched_pred_boxes": 26760,
+  "detection_match_recall": 0.987,
+  "detection_match_precision": 0.09962652669829414,
+  "state_accuracy_on_matched_boxes": 0.9132049983113812,
+  "state_macro_f1_on_matched_boxes": 0.4114884204002425,
+  "confusion_matrix_rows_gt_cols_pred": [
+    [
+      0,
+      16,
+      0
+    ],
+    [
+      0,
+      2657,
+      0
+    ],
+    [
+      0,
+      241,
+      47
+    ]
+  ],
+  "state_names": {
+    "0": "low_activity",
+    "1": "normal_activity",
+    "2": "high_activity"
+  }
+}
